@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+- '0.10'
+deploy:
+  provider: s3
+  access_key_id: AKIAJFAWTT7OQTYVYHUA
+  secret_access_key:
+    secure: k8U9N7YChQDsWGitKBRJzrk9krehZ9TF5abZ4dTSFB/UATzYzCGosAesYo3DQMrxBIw7yypOYk6paCEgschxRkUA69VsRW+Jd9ERifFBwZe2+mYMdg7dQT7eJrw/Q0KphF59zl9MtjvJkRt932wh2EsUSK1V+dnwiDsag7/E1/k1+xNCmHtkCGF/wXjcTJNcg9/ZNw89eoBH75uoiOMKC3rGXEA5FzEBNGsqXLxaMu5xvmmz2AkMlLIJSb3qU/RxJ2zkbuaMZGgC/9CNasoFXrWwNzlZzMo/bTkBs/b3vAHNok+u+JqjaL5nVc+wm1A1k+PTOR/IcGtMzlTu/z27q05mMYhaGWY7WFLC76Twnh3v1s87MWSpeiha/pvpWSdju+F6ylyxaoc2nnt2Zd+e4Sr0N/+I7Qw5lkeMwoYf8JjuAY3wY/vg4D3ipwSzwv8iQvSQB0RVRi7xunSQK0XgpcEyFX2qma1FlJ66jz8KW68++r6T8I9hQ0zl2gza7Raa8TnvZUkK5ZH2MKghclzRiQej9AwndHkhHNnXiobLFPod5IlEAeVLU/J7WC6Jdaa5xWRJ6fGscyoFz/D1opyTahVastC3wghUuMUBEwgfq5OZG+yOJq3iHZ45q6Ym6D9GL0JVgXMWfJwmoNMgQitw/L7GAyOW9LizWtFsx3OxPyA=
+  bucket: deploy-weeia
+  upload-dir: agnieszka.leszczynska
+  acl: private
+  on:
+    repo: Leszczykiewicz/PSOIR-projekt
