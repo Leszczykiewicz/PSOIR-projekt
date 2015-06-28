@@ -13,6 +13,7 @@ exports.action = function(request, callback) {
 	var keys = request.query.selected;
 	var that = this;
 	keys = Array.isArray(keys)?keys:[keys];
+	var redirect = false;
 	keys.forEach(function(key){
 		var queue = new Queue(new AWS.SQS(), appConfig.QueueUrl);
 		queue.sendMessage(key, function(err, data){
@@ -28,13 +29,17 @@ exports.action = function(request, callback) {
 				ItemName: "Wyslano na kolejke" /* required */
 			};
 			simpledb.putAttributes(dbParams, function(err, data) {
-				var res = request.res;
-				res.statusCode = 302; 
-    			res.setHeader("Location", "/?success");
-    			res.end();
+				redirect = true;
 			});
 
 		});
 	});
+
+	if(redirect){
+		var res = request.res;
+		res.statusCode = 302; 
+		res.setHeader("Location", "/?success");
+		res.end();
+	}
 
 }
