@@ -1,0 +1,109 @@
+<html>
+	<head>
+		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">	
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />	
+	</head>
+	<body>
+		<nav class="navbar">
+			
+		</nav>
+		<div class="container">
+
+<%if(success){
+%>
+<div class="alert alert-success alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <strong>Sukces</strong> Pomyślnie zapisano na kolejke
+</div><%}%>
+
+<%if(uploadSuccess){
+%>
+<div class="alert alert-success alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <strong>Sukces</strong> Pomyślnie wgrano plik
+</div><%}%>
+
+		<section id="section1" class="panel panel-default">
+
+			<div class="panel-heading">
+			<div class="container">
+	    		<h3 class="panel-title">Dodanie pliku</h3>
+	    		</div>
+		  	</div>
+	  		<div class="panel-body">
+	  <form action="https://<%=bucket%>.s3.amazonaws.com/" method="POST" id="sign-up-form" class="form-horizontal" enctype="multipart/form-data">	
+	
+	<div class="container">
+	<% fields.forEach(function(elem){ %>
+	  <input type="hidden" name="<%= elem.name  %>" value="<%=elem.value %>"/>
+		<%}); %> 
+	   
+	<div class="col-xs-5">
+	<div class="form-group">
+    	<label for="exampleInputFile">File input</label>
+    	<input type="file" name="file">
+    	<p class="help-block">File will be send to the bucket <%=bucket%> </p>
+  </div>
+	
+  	
+	</div>
+	</div>
+	
+	<div class="container">
+	<div class="col-xs-3">
+	<input type="submit" class="btn  btn-primary btn-block" value="Confirm"/>
+	</div>
+	</div>
+</form>
+	  		</div>
+			<footer class="panel-footer">
+				
+			</footer>
+		</section>
+
+
+
+
+
+
+
+
+
+
+		<section id="section1" class="panel panel-default">
+
+			<div class="panel-heading">
+			<div class="container">
+	    		<h3 class="panel-title">Lista plików</h3>
+	    		</div>
+		  	</div>
+	  		<div class="panel-body">
+	  			<form action="/send" method="get">
+	  			<table class="table table-striped">
+  					<tr>
+  						<th>Zaznacz</th>
+  						<th>Nazwa pliku</th>
+  					</tr>
+  					<% data.Contents.forEach(function(elem){ %>
+  						<%if(elem.Key === "agnieszka.leszczynska/") return;%>
+	  					<tr>
+		  					<td><input type='checkbox' name='selected' value='<%= elem.Key.replace("agnieszka.leszczynska/","")  %>'></td>
+		  					<td><%= elem.Key.replace("agnieszka.leszczynska/","")  %></td>
+		  				</tr>
+					<%}); %> 
+  					
+				</table>
+				<input  class="btn btn-primary" type="submit" value="Wyslij"/>
+			</form>
+	  		</div>
+			<footer class="panel-footer">
+				
+			</footer>
+		</section>
+
+
+	</div>		
+	</body>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+</html>

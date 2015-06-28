@@ -1,0 +1,10 @@
+{	"expiration" : {"day":1},
+	"conditions": [ ["starts-with", "$key", "agnieszka.leszczynska/"],
+    				 {"bucket": "lab4-weeia"}, 
+					 {"x-amz-meta-name": "Agnieszka Leszczynska"},
+					 {"x-amz-meta-computer": "localhost"},
+    				 {"acl": "private"},
+    				 {"success_action_redirect": "http://localhost:8080/?uploadSuccess"},   
+    				 ["content-length-range", 0, 1048576]
+    				]   
+}
