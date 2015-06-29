@@ -13,12 +13,14 @@ exports.action = function(request, callback) {
 	var keys = request.query.selected;
 	var that = this;
 	keys = Array.isArray(keys)?keys:[keys];
-	var redirect = false;
-	keys.forEach(function(key){
+	var redirect = 0;
+	
+	keys.forEach(function(key)
+	{
 		var queue = new Queue(new AWS.SQS(), appConfig.QueueUrl);
-		queue.sendMessage(key, function(err, data){
+		queue.sendMessage(key, function(err, data)
+		{
 			var simpledb = new AWS.SimpleDB();
-			
 			var dbParams = {
 				Attributes: [{
 					Name:"key",
@@ -28,18 +30,19 @@ exports.action = function(request, callback) {
 				DomainName: 'leszczynska_project', /* required */
 				ItemName: "Wyslano na kolejke" /* required */
 			};
-			simpledb.putAttributes(dbParams, function(err, data) {
-				redirect = true;
+
+			simpledb.putAttributes(dbParams, function(err, data) 
+			{
+				redirect++;
+				if(redirect === keys.length){
+					var res = request.res;
+					res.statusCode = 302; 
+					res.setHeader("Location", "/?success");
+					res.end();
+				}
 			});
 
 		});
 	});
-
-	if(redirect){
-		var res = request.res;
-		res.statusCode = 302; 
-		res.setHeader("Location", "/?success");
-		res.end();
-	}
 
 }
